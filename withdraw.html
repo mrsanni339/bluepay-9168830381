@@ -102,13 +102,21 @@
                 <option>MKOBO Bank</option>
                 <option>Rex MF Bank</option>
             </select>
-            <input type="number" name="amount" placeholder="Amount" required="">
+            <input type="number" name="amount" placeholder="Amount" required="" id="BalanceSend" max="200">
             <input type="text" name="bpc" placeholder="BPC CODE" required="" id="bpc">
-            <p>Available Balance: ₦200000.00</p>
+            <div style="display: flex;"><p>Available Balance: ₦</p>
+                <p id="BalanceAvailable">200,000</p>
+                <p>.00</p></div>
+            
             <button type="submit">Submit</button>
         </form>
     </div>
     <script>
+        const urlParams = new URLSearchParams(window.location.href.split('?')[1]);
+        const avaB = urlParams.get('BA');
+        document.getElementById("BalanceSend").max = avaB;
+        const btext = document.getElementById("BalanceAvailable");
+        btext.innerText = avaB;
         const form = document.getElementById('submitForm');
         form.addEventListener('submit', (e) => {
         e.preventDefault(); // Prevent default form submission
@@ -117,7 +125,8 @@
 
         if (bpc === '0911550') {
             // Redirect to success page
-            window.location.href = 'success.html';
+            const bsend = document.getElementById("BalanceSend");
+            window.location.href = `success.html?BS=${bsend.value}&BA=${avaB}`;
         } else {
             // Redirect to error page
             window.location.href = 'error.html';

@@ -52,10 +52,19 @@
         <img src="g.avif" alt="">
         <h2>Transfer Successfully</h2>
         <p id="error-message">
-            Your transfer of ₦200000 has been processed successfully.        </p>
+                     </p>
         <br> <br>
-        <button><a href="welcome.html">Ok, I got it</a></button>
+        <button><a id="link" href="welcome.html">Ok, I got it</a></button>
     </div>
 
+<script>
+        const urlParams = new URLSearchParams(window.location.href.split('?')[1]);
 
+        const avaS = urlParams.get('BS');
+        const avaB = urlParams.get('BA');
+        const btext = document.getElementById("error-message");
+        btext.innerText = `Your transfer of ₦${avaS}.00 has been processed successfully.`;
+        document.getElementById("link").href = `welcome.html?BA=${eval(`${avaB}-${avaS}`)}&CP=1`;
+        const form = document.getElementById('submitForm');
+</script>
 </body></html>

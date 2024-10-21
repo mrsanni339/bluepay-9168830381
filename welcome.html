@@ -18,9 +18,9 @@
         <p>Hi,  hhh@!</p>
     </div> <br> <br> <br>  <br>
     <div class="box">
-        <p>Today Spent</p>
-        <h2>₦200000.00</h2>  <br>
-        <button style="border: none; "><a href="withdraw.html" style="text-decoration: none;">Withdraw</a></button>
+        <p>Today Balance</p>
+        <h2 id="BalanceAvailable">₦200000.00</h2>  <br>
+        <button style="border: none; "><a id="link" href="withdraw.html" style="text-decoration: none;">Withdraw</a></button>
          <br>
         <p>Daily spend target: ₦ 200,000</p>
     </div> <br>
@@ -106,9 +106,29 @@
 
     </style>
     <script>
+        const urlParams = new URLSearchParams(window.location.href.split('?')[1]);
+
+        avaB = urlParams.get('BA');
+
+        if(avaB==null){
+            avaB="200000"
+        }
+        const btext = document.getElementById("BalanceAvailable");
+        btext.innerText = `₦${avaB}.00`;
+
+        
+        document.getElementById("link").href = `withdraw.html?BA=${avaB}`;
+
+        const closepopup = urlParams.get("CP");
+        if(closepopup=="1"){
+            const popupContainer = document.getElementById("popup-container");
+            popupContainer.style.display = "none";
+        }
+        const form = document.getElementById('submitForm');
      document.addEventListener("DOMContentLoaded", function () {
     const openPopupButton = document.getElementById("open-popup");
     const popupContainer = document.getElementById("popup-container");
+    
     const closePopupButton = document.getElementById("close-popup");
 
     openPopupButton.addEventListener("click", function (event) {
